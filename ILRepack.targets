@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Target Name="ILRepacker" AfterTargets="Build">
+        <ItemGroup>
+            <InputAssemblies Include="$(TargetPath)" />
+            <!-- Only use the lines below if you choose to use the DLLs and not the class. If you choose the DLLs, be sure to reference and 
+             tell it to copy to output directory-->
+			<InputAssemblies Include="$(OutputPath)\HarmonyLibs.dll" />
+			<InputAssemblies Include="$(OutputPath)\ItemManager.dll" />
+			<InputAssemblies Include="$(OutputPath)\ServerSync.dll" />
+        </ItemGroup>
+		<ILRepack Parallel="true" DebugInfo="true" Internalize="true" InputAssemblies="@(InputAssemblies)" OutputFile="$(TargetPath)"
+                  TargetKind="SameAsPrimaryAssembly" LibraryPath="$(OutputPath)" RepackDropAttribute="RepackDropAttribute"/>
+    </Target>
+</Project>
